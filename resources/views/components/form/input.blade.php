@@ -1,1 +1,0 @@
-<input type="{{ $type }}" name="name" class="border" placeholder="{{ $getPlaceholder() }}" {{ $attributes }}>
