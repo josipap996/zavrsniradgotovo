@@ -1,12 +1,15 @@
 <?php
 
-use App\Http\Controllers\GenreController;
-use App\Http\Controllers\MediaController;
-use App\Http\Controllers\MemberController;
-use App\Http\Controllers\MovieController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\LoginController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,39 +17,48 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
-Route::view('/homepage', 'welcome', ['title' => 'Welcome Page'])
-    ->name('home')
-    ->withoutMiddleware('token');
+Route::middleware(['auth','checkAccess'])->prefix('admin')->group(function(){
 
-Route::resource('member', MemberController::class)
-    ->except(['store', 'edit'])
-    ->parameter('member', 'id');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    Route::get('user/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('user/store', [UserController::class, 'store'])->name('user.store');
+    Route::get('user/list', [UserController::class, 'list'])->name('user.list');
+    Route::get('user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+    Route::get('user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
 
-Route::get('/foo', function(){
-    return [1, 2, 3];
+    Route::get('role/create', [RoleController::class, 'create'])->name('role.create');
+    Route::post('role/store', [RoleController::class, 'store'])->name('role.store');
+    Route::get('role/list', [RoleController::class, 'list'])->name('role.list');
+    Route::get('role/edit/{id}', [RoleController::class, 'edit'])->name('role.edit');
+    Route::get('role/delete/{id}', [RoleController::class, 'delete'])->name('role.delete');
+
+
+    Route::get('page/create', [PageController::class, 'create'])->name('page.create');
+    Route::post('page/store', [PageController::class, 'store'])->name('page.store');
+    Route::get('page/list', [PageController::class, 'list'])->name('page.list');
+    Route::get('page/edit/{id}', [PageController::class, 'edit'])->name('page.edit');
+    Route::get('page/delete/{id}', [PageContproller::class, 'delete'])->name('page.delete');
+
+
+
+    Route::get('menu/create', [MenuController::class, 'create'])->name('menu.create');
+    Route::post('menu/store', [MenuController::class, 'store'])->name('menu.store');
+    Route::get('menu/list', [MenuController::class, 'list'])->name('menu.list');
+    Route::get('menu/edit/{id}', [MenuController::class, 'edit'])->name('menu.edit');
+    Route::get('menu/delete/{id}', [MenuController::class, 'delete'])->name('menu.delete');
+
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('login',[LoginController::class,'index'])->name('login');
+Route::post('login/make',[LoginController::class,'login'])->name('login.make');
+Route::get('logout',[LoginController::class,'logout'])->name('logout');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::get('/',[FrontendController::class,'index']);
 
-Route::apiResource('role', RoleController::class);
-
-Route::apiResource('genre', GenreController::class);
-
-require __DIR__.'/auth.php';
