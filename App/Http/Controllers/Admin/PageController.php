@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use DB;
+use Auth;
 
 class PageController extends Controller
 {
@@ -67,6 +68,7 @@ class PageController extends Controller
                 Page::where("id", $request->id)->update($data);
                 $text = "updated";
             } else {
+                $data['user_id']=Auth::user()->id;
                 Page::insert($data);
                 $text = "created";
             }

@@ -1,25 +1,42 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model
 {
-    use HasFactory, SoftDeletes;
+    protected $table = "tbl_role";
+    public $primaryKey = "id";
 
-    public $timestamps = false;
-
-    // protected $fillable = ['name'];
-    protected $guarded = [];
-
-    protected $hidden = ['deleted_at'];
-
-    public function users(): HasMany
+    static function access()
     {
-        return $this->hasMany(User::class);
+        $access = [
+            "user" => [
+                "user.create" => "Create User",
+                "user.list" => "User List",
+                "user.edit" => "Update User",
+                "user.delete" => "Delete User",
+            ],
+            "role" => [
+                "role.create" => "Create Role",
+                "role.list" => "Role List",
+                "role.edit" => "Update Role",
+                "role.delete" => "Delete Role",
+            ],
+            "page" => [
+                "page.create" => "Create Page",
+                "page.list" => "Page List",
+                "page.edit" => "Update Page",
+                "page.delete" => "Delete Page",
+            ],
+            "menu" => [
+                "menu.create" => "Add Menu",
+                "menu.list" => "Menu List",
+                "menu.edit" => "Edit Menu",
+                "menu.delete" => "Delete Menu",
+            ],
+        ];
+
+        return $access;
     }
 }

@@ -4,10 +4,12 @@ use App\Enums\Constant;
 use App\Enums\Image;
 use App\Http\Requests\MenuRequest;
 use App\Models\Menu;
+use App\Models\Page;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use DB;
+use Auth;
 
 class MenuController extends Controller
 {
@@ -16,10 +18,14 @@ class MenuController extends Controller
     {
         $this->model = new Menu();
     }
+
     public function create()
     {
-        return view("admin.menu.create");
+        $pages =  Page::filter()->get();
+        return view("admin.menu.create",compact('pages'));
+        
     }
+
     public function list()
     {
         $sort = request("sort") ? request("sort") : "DESC";
@@ -30,7 +36,8 @@ class MenuController extends Controller
     public function edit($id)
     {
         $data = Menu::where("id", $id)->first();
-        return view("admin.menu.edit", compact("data"));
+        $pages =  Page::filter()->get();
+        return view("admin.menu.edit", compact("data",'pages'));
     }
 
 
@@ -38,11 +45,12 @@ class MenuController extends Controller
     {
         DB::beginTransaction();
         try {
-            $data = ["name" => $request->name, "link" => $request->link ,"route" => $request->route];
+            $data = ["name" => $request->name, "page_id" => $request->page_id];
             if ($request->has("id")) {
                 Menu::where("id", $request->id)->update($data);
                 $text = "updated";
             } else {
+                $data['user_id']=Auth::user()->id;
                 Menu::insert($data);
                 $text = "created";
             }

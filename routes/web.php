@@ -43,7 +43,7 @@ Route::middleware(['auth','checkAccess'])->prefix('admin')->group(function(){
     Route::post('page/store', [PageController::class, 'store'])->name('page.store');
     Route::get('page/list', [PageController::class, 'list'])->name('page.list');
     Route::get('page/edit/{id}', [PageController::class, 'edit'])->name('page.edit');
-    Route::get('page/delete/{id}', [PageContproller::class, 'delete'])->name('page.delete');
+    Route::get('page/delete/{id}', [PageController::class, 'delete'])->name('page.delete');
 
 
 

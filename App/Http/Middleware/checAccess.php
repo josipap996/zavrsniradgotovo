@@ -19,7 +19,9 @@ class checAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check()){
+        if(Auth::check() && Auth::user()->role_id == 1){
+            return $next($request);
+        }else{
             $access = Session::get('access');
             $routeName = Route::currentRouteName();
             if(in_array($routeName , $access)){

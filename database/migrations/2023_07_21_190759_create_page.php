@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('banner_image');
             $table->string('banner_title');
             $table->text('content');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

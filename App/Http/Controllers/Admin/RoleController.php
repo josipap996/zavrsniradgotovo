@@ -21,8 +21,7 @@ class RoleController extends Controller
     public function create()
     {
         $access = Role::access();
-        $otherPages = Menu::where('id','>',4)->get();
-        return view("admin.role.create",compact('access','otherPages'));
+        return view("admin.role.create",compact('access'));
     }
 
 
@@ -38,9 +37,8 @@ class RoleController extends Controller
     {
         $data = Role::where("id", $id)->first();
         $access = Role::access();
-        $otherPages = Menu::where('id','>',4)->get();
         $accessItems = $data->access?explode(', ',$data->access):[];
-        return view("admin.role.edit", compact("data","accessItems","access","otherPages"));
+        return view("admin.role.edit", compact("data","accessItems","access"));
     }
 
 

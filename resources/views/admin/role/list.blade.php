@@ -19,11 +19,15 @@
                                 <td>{{ ++$i }}</td>
                                 <td> {{ $item->name }} </td>
                                 <td> {{ $item->access }} </td>
-                                <td class="mi-action-button"><a href="{{ route('role.edit', ['id' => $item->id]) }}"> <button
+                                <td class="mi-action-button">
+                                @if($item->id != 1)
+                                    <a href="{{ route('role.edit', ['id' => $item->id]) }}"> <button
                                             class="butn warning transparent"><i class="fa fa-edit"></i></button></a><a
                                         onclick="return confirm('Are you sure to delete')"
                                         href="{{ route('role.delete', ['id' => $item->id]) }}"> <button
-                                            class="butn danger transparent"><i class="fa fa-trash"></i></button></a> </td>
+                                            class="butn danger transparent"><i class="fa fa-trash"></i></button></a> 
+                                @endif
+                                        </td>
                             </tr>
                         @endforeach
                     </tbody>

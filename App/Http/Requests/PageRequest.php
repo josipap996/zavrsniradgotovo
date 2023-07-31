@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Auth;
 
 class PageRequest extends FormRequest
 {
@@ -14,13 +16,18 @@ class PageRequest extends FormRequest
     {
         if (Request()->has("id")) {
             return [
-                "name" => "required|unique:tbl_page,name,".request()->id,
+                "name" => [
+                    'required',
+                    Rule::unique('tbl_page', 'name')->ignore(request()->id, 'id')->where('user_id', Auth::user()->id),
+                ]   ,
                 "banner_title" => "required",
                 "content" => "required",
             ];
         } else {
             return [
-                "name" => "required|unique:tbl_page",
+                "name" =>['required',
+                    Rule::unique('tbl_page', 'name')->where('user_id', Auth::user()->id),
+                ],
                 "banner_image" => "required",
                 "banner_title" => "required",
                 "content" => "required",

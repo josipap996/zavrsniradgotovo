@@ -16,8 +16,8 @@ class CreateTblMenuTable extends Migration
         Schema::create('tbl_menu', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('link', 200);
-            $table->string('route');
+            $table->integer('user_id');
+            $table->integer('page_id');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }

@@ -20,9 +20,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        @foreach ($pages as $page)
+        @foreach ($menus as $menu)
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="?page={{ $page->name }}">{{ $page->name }}</a>
+                <a class="nav-link active" aria-current="page" href="?page={{ optional($menu->page)->name }}">{{ $menu->name }}</a>
             </li>
         @endforeach
       </ul>

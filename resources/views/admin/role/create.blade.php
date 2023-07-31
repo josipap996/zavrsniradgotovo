@@ -30,23 +30,6 @@
                                         </div>
                                     </div>
                                 @endforeach
-
-                                @if (count($otherPages) > 0)
-                                    <div class="mi-card">
-                                        <div class="mi-header text-dark text-uppercase">Other pages</div>
-                                            <div class="mi-body d-flex justify-content-around">
-                                                @foreach ($otherPages as $pages)
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="access_item[]" type="checkbox" value="{{ $pages->route }}" id="{{ $pages->name }}">
-                                                        <label class="form-check-label" for="{{ $pages->name }}">
-                                                            {{ $pages->name }}
-                                                        </label>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
                         </div>
                     </div>
                     <!--end of mi-card-body-->

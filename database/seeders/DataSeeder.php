@@ -19,37 +19,6 @@ class DataSeeder extends Seeder
      */
     public function run()
     {
-        Menu::insert([
-            [
-                'id' => 1,
-                'name' => 'MANAGE USERS',
-                'link' => '/admin/user/list',
-                'route' => 'info.list',
-                'created_at' => '2023-07-29 18:06:45',
-            ],
-            [
-                'id' => 2,
-                'name' => 'MANAGE ROLES',
-                'link' => '/admin/role/list',
-                'route' => 'roles.list',
-                'created_at' => '2023-07-29 18:11:37',
-            ],
-            [
-                'id' => 3,
-                'name' => 'MANAGE PAGE',
-                'link' => '/admin/page/list',
-                'route' => 'page.list',
-                'created_at' => '2023-07-29 18:11:57',
-            ],
-            [
-                'id' => 4,
-                'name' => 'MANAGE MENU',
-                'link' => '/admin/menu/list',
-                'route' => 'page.menu',
-                'created_at' => '2023-07-29 18:12:13',
-            ],
-        ]);
-
 
         Page::insert([
             [
@@ -58,6 +27,7 @@ class DataSeeder extends Seeder
                 'banner_image' => '2023-07-21-21-33-26-1689975206213.jpg',
                 'banner_title' => 'Home',
                 'content' => '<p>Lorem ipsum ... </p>',
+                'user_id'=>1,
                 'created_at' => '2023-07-28 01:52:41',
                 'updated_at' => '2023-07-28 01:52:41',
             ],
@@ -67,6 +37,7 @@ class DataSeeder extends Seeder
                 'banner_image' => '2023-07-22-19-51-02-1690055462198.jpg',
                 'banner_title' => 'About us',
                 'content' => '<h1>Lorem Ipsum...</h1>',
+                'user_id'=>1,
                 'created_at' => null,
                 'updated_at' => null,
             ],
@@ -76,6 +47,7 @@ class DataSeeder extends Seeder
                 'banner_image' => '2023-07-28-07-53-56-1690530836225.png',
                 'banner_title' => 'GET IN TOUCH WITH US',
                 'content' => '<p>Lorem ipsum...</p>',
+                'user_id'=>1,
                 'created_at' => null,
                 'updated_at' => null,
             ],
@@ -86,7 +58,7 @@ class DataSeeder extends Seeder
             [
                 'id' => 1,
                 'name' => 'Admin',
-                'access' => 'user.create, user.list, user.edit, user.delete, role.create, role.list, role.edit, role.delete, page.create, page.list, page.edit, page.delete, menu.create, menu.list, menu.edit, menu.delete',
+                'access' => 'ALL ACCESS',
                 'created_at' => null,
                 'updated_at' => '2023-07-29 12:45:18',
             ],

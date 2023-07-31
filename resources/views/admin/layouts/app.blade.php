@@ -13,14 +13,6 @@
 </head>
 <body>
 
-@php
-  use App\Models\Menu;
-  $menus = Menu::getMenu();
-  foreach ($errors->all as $error) {
-    exit;
-  }
-@endphp
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
     <a class="navbar-brand" href="#"></a>
@@ -29,12 +21,18 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        @foreach ($menus as $menu)
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{ $menu->link }}">{{ $menu->name }}</a>
-          </li>
-        @endforeach
-        
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{{ route('user.list') }}">MANAGE USERS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('role.list') }}">MANAGE ROLES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('page.list') }}">MANAGE PAGE</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('menu.list') }}">MANAGE MENU</a>
+        </li>
       </ul>
       <ul class="navbar-nav ms-auto">
        <li class="nav-item">

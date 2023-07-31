@@ -21,20 +21,25 @@ class LoginController extends Controller
         if($user){
             if(Hash::check($request->password,$user->password)){
                 Auth::login($user);
-                $role = Role::where('id',$user->role_id)->first();
-                $access_items = $role->access?explode(', ',$role->access):[];
-                foreach ($access_items as $item) {
-                    // Check if the current item contains '.create'
-                    if (strpos($item, '.create') !== false || strpos($item, '.edit') !== false) {
-                        // Replace '.create' with '.store'
-                        $newItem = str_replace('.create', '.store', $item);
+                if($user->role_id == 1){
+                    $access_items = [];
+                }else{
+                    $role = Role::where('id',$user->role_id)->first();
+                    $access_items = $role->access?explode(', ',$role->access):[];
+                    foreach ($access_items as $item) {
+                        // Check if the current item contains '.create'
+                        if (strpos($item, '.create') !== false || strpos($item, '.edit') !== false) {
+                            // Replace '.create' with '.store'
+                            $newItem = str_replace('.create', '.store', $item);
 
-                        // Add the new item to the array
-                        $access_items[] = $newItem;
+                            // Add the new item to the array
+                            $access_items[] = $newItem;
+                        }
                     }
-                }
 
-                $access_items[]='dashboard';
+                    $access_items[]='dashboard';
+                }
+                
 
                 User::where('id',$user->id)->update(['last_login'=>Carbon::now()]);
                 

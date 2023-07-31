@@ -16,17 +16,17 @@
             </label>
             <input type="text" placeholder="NAME" name="name" id="name" class="form-control" value="{{ old('name')?old('name'):$data->name }}" required>
           </div>
-          <div class="form-group">
-            <label>LINK <b class="text-danger">*</b>
-            </label>
-            <input type="text" placeholder="LINK" name="link" id="link" class="form-control" value="{{ old('link')?old('link'):$data->link }}" required>
-          </div>
 
-          <div class="form-group">
-            <label>ROUTE <b class="text-danger">*</b>
-            </label>
-            <input type="text" placeholder="ROUTE NAME" name="route" id="route" class="form-control" value="{{ old('route')?old('route'):$data->route }}" required>
-          </div>
+            <div class="form-group ">
+              <label>PAGE <b class="text-danger">*</b>
+              </label>
+              <select name="page_id" class="form-control">
+                <option value="">Select one page</option>
+                @foreach ($pages as $page)
+                  <option value="{{ $page->id }}" {{ $page->id==$data->page_id?"selected":"" }}>{{ $page->name }}</option>
+                @endforeach
+              </select>
+            </div>
         </div>
         <!--end of mi-card-body-->
         <div class="mi-footer">

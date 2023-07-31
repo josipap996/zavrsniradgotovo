@@ -16,16 +16,16 @@
               </label>
               <input type="text" placeholder="NAME" name="name" id="name" class="form-control" required>
             </div>
-            <div class="form-group ">
-              <label>LINK <b class="text-danger">*</b>
-              </label>
-              <input type="text" placeholder="LINK" name="link" id="link" class="form-control" required>
-            </div>
 
             <div class="form-group ">
-              <label>ROUTE <b class="text-danger">*</b>
+              <label>PAGE <b class="text-danger">*</b>
               </label>
-              <input type="text" placeholder="ROUTE NAME" name="route" id="route" class="form-control" required>
+              <select name="page_id" class="form-control">
+                <option value="">Select one page</option>
+                @foreach ($pages as $page)
+                  <option value="{{ $page->id }}">{{ $page->name }}</option>
+                @endforeach
+              </select>
             </div>
           </div>
         </div>
